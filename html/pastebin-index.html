@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://host.ddot.cc/pastebin-logo2.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://host.ddot.cc/pastebin-logo2.png" />
+    <title>URL Shortener</title>
+    <meta name="description" content="Yet another URL shortener">
+    <style>
+        body {
+
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        form {
+            text-align: left;
+            background-color: lightslategray;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px;
+        }
+
+        #longUrl {
+            border: none;
+            border-bottom: 1px solid lightyellow;
+            outline: none;
+            width: 70%;
+            background-color: lightgoldenrodyellow;
+            border-radius: 2px;
+            color: #00FF00;
+        }
+
+        #shortUrl {
+            margin-top: 15px;
+            color: aqua;
+        }
+
+        #submit {
+            margin-top: 5px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        li {
+            color: lightseagreen;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="urlForm">
+        <h2 style="color: lightgreen;">URL Shortener</h2>
+        <label for="longUrl" style=" color: lightblue;">>> Long URL: </label>
+        <input type="text" id="longUrl" name="longUrl" required>
+        <div id="shortUrl"></div>
+    </form>
+    <script>
+        document.getElementById('urlForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const longUrl = document.getElementById('longUrl').value;
+            const response = await fetch('/api/shorten', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: longUrl })
+            });
+            const result = await response.json();
+            const linkClick = document.createElement('a');
+            linkClick.href = result.url;
+            linkClick.innerText = result.url;
+            linkClick.target = '_blank';
+            linkClick.style = 'color: lightpink; text-decoration: none';
+            document.getElementById('shortUrl').innerText = '>> Short URL: ';
+            document.getElementById('shortUrl').appendChild(linkClick);
+
+            const copyButton = document.createElement('button');
+            copyButton.innerText = 'copy';
+            // 添加左边距
+            copyButton.style.marginLeft = '10px';
+            document.getElementById('shortUrl').appendChild(copyButton);
+
+            copyButton.addEventListener('click', function () {
+                navigator.clipboard.writeText(result.url);
+                copyButton.innerText = 'copied!';
+            });
+        });
+    </script>
+
+    <ul>
+        <li> Google: <a href="https://dlj.one/9rrvfg" , target="_blank">dlj.one/9rrvfg</a></li>
+        <li> Twitter: <a href="https://dlj.one/mbhile" , target="_blank">dlj.one/mbhile</a></li>
+        <li> YouTube: <a href="https://dlj.one/561bww" , target="_blank">dlj.one/561bww</a></li>
+    </ul>
+</body>
+
+</html>
