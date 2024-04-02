@@ -4,65 +4,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yet another URL shortener">
     <link rel="icon" href="https://host.ddot.cc/pastebin-logo2.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="https://host.ddot.cc/pastebin-logo2.png" />
     <title>URL Shortener</title>
-    <meta name="description" content="Yet another URL shortener">
     <style>
         body {
-
-            color: #00FF00;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Arial', sans-serif;
+            /* Changed for a more modern look */
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f0f0f0;
+            /* Light background for contrast */
         }
 
         form {
-            text-align: left;
-            background-color: lightslategray;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px;
+            text-align: center;
+            /* Center align form content */
+            background-color: #ffffff;
+            /* Light background for the form */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            /* Make form width responsive */
+            max-width: 500px;
+            /* Maximum width of the form */
         }
 
-        #longUrl {
-            border: none;
-            border-bottom: 1px solid lightyellow;
-            outline: none;
-            width: 70%;
-            background-color: lightgoldenrodyellow;
-            border-radius: 2px;
-            color: #00FF00;
-        }
-
-        #shortUrl {
-            margin-top: 15px;
-            color: aqua;
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            /* Subtle border */
+            border-radius: 5px;
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
         }
 
         #submit {
-            margin-top: 5px;
+            background-color: #4CAF50;
+            /* Green background */
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
         }
 
         img {
-            width: 100px;
-            height: 100px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 20px;
+            /* Add some space above the form */
         }
 
-        li {
-            color: lightseagreen;
-            font-size: 20px;
+        @media screen and (max-width: 600px) {
+            form {
+                width: 80%;
+                /* Make form wider on smaller screens */
+                padding: 20px;
+                /* Less padding on smaller screens */
+            }
         }
     </style>
 </head>
 
 <body>
     <form id="urlForm">
-        <h2 style="color: lightgreen;">URL Shortener</h2>
-        <label for="longUrl" style=" color: lightblue;">>> Long URL: </label>
+        <h2 style="color: #333; font-family: 'Arial', sans-serif;">URL Shortener</h2>
+        <!-- Darker color for better readability -->
+        <label for="longUrl">Long URL:</label>
         <input type="text" id="longUrl" name="longUrl" required>
         <div id="shortUrl"></div>
+        <button type="submit" id="submit">Shorten URL</button>
     </form>
     <script>
         document.getElementById('urlForm').addEventListener('submit', async function (event) {
@@ -81,7 +106,7 @@
             linkClick.innerText = result.url;
             linkClick.target = '_blank';
             linkClick.style = 'color: lightpink; text-decoration: none';
-            document.getElementById('shortUrl').innerText = '>> Short URL: ';
+            document.getElementById('shortUrl').innerText = 'Short URL: ';
             document.getElementById('shortUrl').appendChild(linkClick);
 
             const copyButton = document.createElement('button');
@@ -97,11 +122,6 @@
         });
     </script>
 
-    <ul>
-        <li> Google: <a href="https://dlj.one/9rrvfg" , target="_blank">dlj.one/9rrvfg</a></li>
-        <li> Twitter: <a href="https://dlj.one/mbhile" , target="_blank">dlj.one/mbhile</a></li>
-        <li> YouTube: <a href="https://dlj.one/561bww" , target="_blank">dlj.one/561bww</a></li>
-    </ul>
 </body>
 
 </html>
